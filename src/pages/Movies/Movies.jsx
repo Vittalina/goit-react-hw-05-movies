@@ -3,9 +3,6 @@ import { searchMovies } from 'services/API';
 import MoviesList from 'components/MovieList/MovieList';
 // import { Link, Outlet } from 'react-router-dom';
 
-// import PropTypes from 'prop-types';
-// import 'styles/styles.css';
-
 const Movies = () => {
   const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
@@ -57,9 +54,5 @@ const Movies = () => {
     </div>
   );
 };
-
-// Searchbar.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
 
 export default Movies;

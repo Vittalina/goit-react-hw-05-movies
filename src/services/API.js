@@ -17,3 +17,10 @@ export const searchMovies = async (page, query) => {
   );
   return response.data;
 };
+
+export const getMovieDetails = async id => {
+  const response = await axios.get(
+    `/movie/${id}?api_key=${MY_API_KEY}&language=en-US`
+  );
+  return response.data;
+};
