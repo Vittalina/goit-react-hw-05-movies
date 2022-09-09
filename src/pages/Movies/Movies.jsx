@@ -1,16 +1,30 @@
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { searchMovies } from 'services/API';
+import MoviesList from 'components/MovieList/MovieList';
 // import { Link, Outlet } from 'react-router-dom';
-import { useState } from 'react';
 
 // import PropTypes from 'prop-types';
 // import 'styles/styles.css';
 
 const Movies = () => {
   const [query, setQuery] = useState('');
+  const [page, setPage] = useState(1);
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    if (!query) {
+      return;
+    }
+
+    searchMovies(page, query).then(movies => {
+      setMovies(prevState => [...prevState, ...movies.results]);
+    });
+    setQuery(query);
+  }, [page, query]);
 
   const onSubmitData = event => {
     event.preventDefault();
-    //  onSubmit(query);
+    setPage(1);
 
     if (query.trim() === '') {
       alert('Please enter your request');
@@ -38,14 +52,7 @@ const Movies = () => {
           <span>Search</span>
         </button>
       </form>
-      <ul>
-        {/* <li>
-          <Link to="movies/:movieId/cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="movies/:movieId/reviews">Reviews</Link>
-        </li> */}
-      </ul>
+      <MoviesList movies={movies} />
       {/* <Outlet /> */}
     </div>
   );
