@@ -24,3 +24,10 @@ export const getMovieDetails = async id => {
   );
   return response.data;
 };
+
+export const getMovieCast = async id => {
+  const response = await axios.get(
+    `/movie/${id}/credits?api_key=${MY_API_KEY}&language=en-US`
+  );
+  return response.data;
+};

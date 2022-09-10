@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { searchMovies } from 'services/API';
-import MoviesList from 'components/MovieList/MovieList';
+import MoviesList from 'components/MoviesList/MoviesList';
 // import { Link, Outlet } from 'react-router-dom';
 
 const Movies = () => {
