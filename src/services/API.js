@@ -31,3 +31,10 @@ export const getMovieCast = async id => {
   );
   return response.data;
 };
+
+export const getMovieReviews = async id => {
+  const response = await axios.get(
+    `/movie/${id}/reviews?api_key=${MY_API_KEY}&language=en-US`
+  );
+  return response.data;
+};

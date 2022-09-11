@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'services/API';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
@@ -37,12 +37,11 @@ const MovieDetails = () => {
             <li>
               <Link to="cast">Cast</Link>
             </li>
-            {/* <li>
-              <Link to="reviews">
-                Reviews
-              </Link>
-            </li> */}
+            <li>
+              <Link to="reviews">Reviews</Link>
+            </li>
           </ul>
+          <Outlet />
         </>
       )}
     </main>
