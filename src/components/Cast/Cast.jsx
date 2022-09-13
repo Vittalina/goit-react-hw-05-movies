@@ -22,12 +22,13 @@ const Cast = () => {
         <>
           <p>Cast</p>
           <ul>
-            {cast.map(cast => {
+            {cast.map(({ id, name, profile_path, character }) => {
+              const imageURL = `https://image.tmdb.org/t/p/w500${profile_path}`;
               return (
-                <li key={cast.id}>
-                  <img src={cast.profile_path} alt={cast.name} />
-                  <p>Name: {cast.name}</p>
-                  <p>Character: {cast.character}</p>
+                <li key={id}>
+                  <img src={imageURL} alt={name} />
+                  <p>Name: {name}</p>
+                  <p>Character: {character}</p>
                 </li>
               );
             })}

@@ -21,18 +21,14 @@ const Reviews = () => {
     <div>
       <h2>Reviews</h2>
       <ul>
-        {reviews.map(review => {
-          const { author, content, id } = review;
-
-          return (
-            <li key={id}>
-              <p>
-                <b>{author}</b>
-              </p>
-              <p>{content}</p>
-            </li>
-          );
-        })}
+        {reviews.map(({ author, content, id }) => (
+          <li key={id}>
+            <p>
+              <b>{author}</b>
+            </p>
+            <p>{content}</p>
+          </li>
+        ))}
       </ul>
     </div>
   );

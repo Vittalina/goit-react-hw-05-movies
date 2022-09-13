@@ -1,54 +1,45 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { searchMovies } from 'services/API';
 import MoviesList from 'components/MoviesList/MoviesList';
+import MovieSearchForm from 'components/MovieSearchForm/MovieSearchForm';
 // import { Link, Outlet } from 'react-router-dom';
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
+  // const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQuery = searchParams.get('searchQuery');
 
   useEffect(() => {
-    if (!query) {
+    if (!searchQuery) {
       return;
     }
-
-    searchMovies(page, query).then(movies => {
-      setMovies(prevState => [...prevState, ...movies.results]);
+    searchMovies(page, searchQuery).then(movies => {
+      setMovies(movies.results);
     });
-    setQuery(query);
-  }, [page, query]);
+    setSearchParams(searchQuery);
+  }, [page, searchQuery, setSearchParams]);
+
+  // const updateQueryString = searchQuery => {
+  //   const nextParams = searchQuery !== '' ? { searchQuery } : {};
+  //   setSearchParams(nextParams);
+  // };
 
   const onSubmitData = event => {
     event.preventDefault();
     setPage(1);
-
-    if (query.trim() === '') {
-      alert('Please enter your request');
-      return;
-    }
-  };
-
-  const onInputChange = event => {
-    setQuery(event.target.value);
-    console.log(event.target.value);
+    setMovies([]);
+    const form = event.currentTarget;
+    setSearchParams({ searchQuery: form.element.searchQuery.value });
+    form.reset();
   };
 
   return (
     <div>
-      <form onSubmit={onSubmitData}>
-        <input
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          onChange={onInputChange}
-          value={query}
-        />
-        <button type="submit">
-          <span>Search</span>
-        </button>
-      </form>
+      <MovieSearchForm onSubmit={onSubmitData} />
       <MoviesList movies={movies} />
       {/* <Outlet /> */}
     </div>

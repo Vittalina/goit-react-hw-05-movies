@@ -11,9 +11,9 @@ export const getTrendingMovies = async () => {
   return response.data;
 };
 
-export const searchMovies = async (page, query) => {
+export const searchMovies = async (page, searchQuery) => {
   const response = await axios.get(
-    `/search/movie?api_key=${MY_API_KEY}&query=${query}&page=${page}`
+    `/search/movie?api_key=${MY_API_KEY}&query=${searchQuery}&page=${page}`
   );
   return response.data;
 };
@@ -29,12 +29,12 @@ export const getMovieCast = async id => {
   const response = await axios.get(
     `/movie/${id}/credits?api_key=${MY_API_KEY}&language=en-US`
   );
-  return response.data;
+  return response.data.cast;
 };
 
 export const getMovieReviews = async id => {
   const response = await axios.get(
-    `/movie/${id}/reviews?api_key=${MY_API_KEY}&language=en-US`
+    `/movie/${id}/reviews?api_key=${MY_API_KEY}&language=en-US&page=1`
   );
-  return response.data;
+  return response.data.results;
 };
