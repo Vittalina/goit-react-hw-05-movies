@@ -13,19 +13,20 @@ const Movies = () => {
   const searchQuery = searchParams.get('query');
 
   useEffect(() => {
-    // if (!query) {
-    //   return;
-    // }
+    if (!searchQuery) {
+      return;
+    }
+
     searchMovies(page, searchQuery).then(movies => {
       setMovies(movies.results);
     });
     // setQuery(query);
   }, [page, searchQuery]);
 
-  const onSubmitData = searchQuery => {
+  const onSubmitData = search => {
     setPage(1);
-    setSearchParams({ query: searchQuery });
-    console.log(searchQuery);
+    setSearchParams({ query: search });
+    // console.log(searchQuery);
   };
 
   return (
