@@ -6,7 +6,7 @@ import MovieSearchForm from 'components/MovieSearchForm/MovieSearchForm';
 // import { Link, Outlet } from 'react-router-dom';
 
 const Movies = () => {
-  // const [query, setQuery] = useState('');
+  const [query, setQuery] = useState('');
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,27 +14,28 @@ const Movies = () => {
   const searchQuery = searchParams.get('searchQuery');
 
   useEffect(() => {
-    if (!searchQuery) {
+    if (!query) {
       return;
     }
     searchMovies(page, searchQuery).then(movies => {
       setMovies(movies.results);
     });
-    setSearchParams(searchQuery);
-  }, [page, searchQuery, setSearchParams]);
+    setQuery(query);
+  }, [page, query, searchQuery, setSearchParams]);
 
   // const updateQueryString = searchQuery => {
   //   const nextParams = searchQuery !== '' ? { searchQuery } : {};
   //   setSearchParams(nextParams);
   // };
 
-  const onSubmitData = event => {
-    event.preventDefault();
+  const onSubmitData = searchQuery => {
+    // event.preventDefault();
     setPage(1);
-    setMovies([]);
-    const form = event.currentTarget;
-    setSearchParams({ searchQuery: form.element.searchQuery.value });
-    form.reset();
+    setSearchParams({ query: searchQuery.value });
+    console.log(searchQuery.value);
+    // const form = event.currentTarget;
+    // setSearchParams({ searchQuery: form.element.searchQuery.value });
+    // form.reset();
   };
 
   return (

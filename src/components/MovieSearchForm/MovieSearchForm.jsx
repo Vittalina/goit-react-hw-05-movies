@@ -23,6 +23,7 @@ const MovieSearchForm = ({ onSubmit }) => {
     <div>
       <form onSubmit={onSubmitData}>
         <input
+          name="searchMovie"
           type="text"
           autoComplete="off"
           autoFocus
