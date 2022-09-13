@@ -21,7 +21,7 @@ const Movies = () => {
       setMovies(movies.results);
     });
     setQuery(query);
-  }, [page, query, searchQuery, setSearchParams]);
+  }, [page, query, searchQuery]);
 
   // const updateQueryString = searchQuery => {
   //   const nextParams = searchQuery !== '' ? { searchQuery } : {};
