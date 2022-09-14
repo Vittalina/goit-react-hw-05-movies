@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 // import Home from 'pages/Home/Home';
 // import Movies from 'pages/Movies/Movies';
 // import NotFound from 'pages/NotFound/NotFound';
@@ -6,6 +6,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 // import Cast from 'components/Cast/Cast';
 // import Reviews from 'components/Reviews/Reviews';
 import { lazy, Suspense } from 'react';
+import { Header, Link, Container } from 'components/App.styled';
 
 const Home = lazy(() => import('../pages/Home/Home'));
 const Movies = lazy(() => import('../pages/Movies/Movies'));
@@ -16,13 +17,17 @@ const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 
 export const App = () => {
   return (
-    <div>
-      <header>
+    <Container>
+      <Header>
         <nav>
-          <Link to="/">Home</Link>
-          <Link to="/movies">Movies</Link>
+          <Link className="Link" to="/">
+            Home
+          </Link>
+          <Link className="Link" to="/movies">
+            Movies
+          </Link>
         </nav>
-      </header>
+      </Header>
 
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
@@ -35,6 +40,6 @@ export const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-    </div>
+    </Container>
   );
 };

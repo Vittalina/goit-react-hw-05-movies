@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'services/API';
+import { MovieDetailsStyled } from 'pages/MovieDetails/MovieDetails.styled';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
@@ -26,19 +27,21 @@ const MovieDetails = () => {
       {loading && (
         <>
           <Link to={backLinkHref}>Go back</Link>
-          <img src={imageURL} alt={title} />
-          <div>
-            <h1>
-              {title}({date})
-            </h1>
-            <p>Popularity: {Math.round(popularity)}</p>
-            <h2>Overview</h2>
-            <p>{overview}</p>
-            <h2>Genres</h2>
-            {genres.map(genre => {
-              return <p key={genre.id}>{genre.name}</p>;
-            })}
-          </div>
+          <MovieDetailsStyled>
+            <img src={imageURL} alt={title} />
+            <div>
+              <h1>
+                {title}({date})
+              </h1>
+              <p>Popularity: {Math.round(popularity)}</p>
+              <h2>Overview</h2>
+              <p>{overview}</p>
+              <h2>Genres</h2>
+              {genres.map(genre => {
+                return <p key={genre.id}>{genre.name}</p>;
+              })}
+            </div>
+          </MovieDetailsStyled>
           <p>Additional information</p>
           <ul>
             <li>
