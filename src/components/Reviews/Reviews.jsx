@@ -6,30 +6,33 @@ import PropTypes from 'prop-types';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
-  // const [loading, setLoading] = useState(false);
-
   const { movieId } = useParams();
 
   useEffect(() => {
     getMovieReviews(movieId).then(results => {
       setReviews(results);
-      // setLoading(true);
     });
   }, [movieId]);
 
   return (
     <div>
-      <h2>Reviews</h2>
-      <ul>
-        {reviews.map(({ author, content, id }) => (
-          <li key={id}>
-            <p>
-              <b>{author}</b>
-            </p>
-            <p>{content}</p>
-          </li>
-        ))}
-      </ul>
+      {reviews.length > 0 ? (
+        <>
+          <h2>Reviews</h2>
+          <ul>
+            {reviews.map(({ author, content, id }) => (
+              <li key={id}>
+                <p>
+                  <b>{author}</b>
+                </p>
+                <p>{content}</p>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p>We don't have any reviews for this movie</p>
+      )}
     </div>
   );
 };

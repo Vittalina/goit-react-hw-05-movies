@@ -1,13 +1,15 @@
 import { useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'services/API';
-import { Link, Outlet } from 'react-router-dom';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
 
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     getMovieDetails(movieId).then(movie => {
@@ -15,16 +17,21 @@ const MovieDetails = () => {
       setLoading(true);
     });
   }, [movieId]);
-  const { title, poster_path, popularity, overview, genres } = movie;
+  const { title, poster_path, popularity, release_date, overview, genres } =
+    movie;
   const imageURL = `https://image.tmdb.org/t/p/w500${poster_path}`;
+  const date = new Date(release_date).getUTCFullYear();
   return (
     <main>
       {loading && (
         <>
+          <Link to={backLinkHref}>Go back</Link>
           <img src={imageURL} alt={title} />
           <div>
-            <h1>{title}</h1>
-            <p>{popularity}</p>
+            <h1>
+              {title}({date})
+            </h1>
+            <p>Popularity: {Math.round(popularity)}</p>
             <h2>Overview</h2>
             <p>{overview}</p>
             <h2>Genres</h2>
@@ -35,10 +42,14 @@ const MovieDetails = () => {
           <p>Additional information</p>
           <ul>
             <li>
-              <Link to="cast">Cast</Link>
+              <Link to="cast" state={{ from: backLinkHref }}>
+                Cast
+              </Link>
             </li>
             <li>
-              <Link to="reviews">Reviews</Link>
+              <Link to="reviews" state={{ from: backLinkHref }}>
+                Reviews
+              </Link>
             </li>
           </ul>
           <Outlet />
