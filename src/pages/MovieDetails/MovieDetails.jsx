@@ -2,7 +2,13 @@ import { useParams } from 'react-router-dom';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieDetails } from 'services/API';
-import { MovieDetailsStyled } from 'pages/MovieDetails/MovieDetails.styled';
+import {
+  MovieDetailsStyled,
+  MovieDetailsTitle,
+  MovieDetailsHeadline,
+  MovieDetailsInfo,
+  MovieDetailsImage,
+} from 'pages/MovieDetails/MovieDetails.styled';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState({});
@@ -28,21 +34,27 @@ const MovieDetails = () => {
         <>
           <Link to={backLinkHref}>Go back</Link>
           <MovieDetailsStyled>
-            <img src={imageURL} alt={title} />
+            <MovieDetailsImage src={imageURL} alt={title} />
             <div>
-              <h1>
+              <MovieDetailsTitle>
                 {title}({date})
-              </h1>
-              <p>Popularity: {Math.round(popularity)}</p>
-              <h2>Overview</h2>
-              <p>{overview}</p>
-              <h2>Genres</h2>
+              </MovieDetailsTitle>
+              <MovieDetailsInfo>
+                Popularity: {Math.round(popularity)}
+              </MovieDetailsInfo>
+              <MovieDetailsHeadline>Overview</MovieDetailsHeadline>
+              <MovieDetailsInfo>{overview}</MovieDetailsInfo>
+              <MovieDetailsHeadline>Genres</MovieDetailsHeadline>
               {genres.map(genre => {
-                return <p key={genre.id}>{genre.name}</p>;
+                return (
+                  <MovieDetailsInfo key={genre.id}>
+                    {genre.name}
+                  </MovieDetailsInfo>
+                );
               })}
             </div>
           </MovieDetailsStyled>
-          <p>Additional information</p>
+          <MovieDetailsHeadline>Additional information</MovieDetailsHeadline>
           <ul>
             <li>
               <Link to="cast" state={{ from: backLinkHref }}>

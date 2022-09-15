@@ -2,6 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getMovieCast } from 'services/API';
 import PropTypes from 'prop-types';
+import {
+  CastImage,
+  CastUl,
+  CastHeader,
+  CastTitle,
+  CastInfo,
+} from 'components/Cast/Cast.styled';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
@@ -20,19 +27,23 @@ const Cast = () => {
     <>
       {loading && (
         <>
-          <p>Cast</p>
-          <ul>
+          <CastHeader>Cast</CastHeader>
+          <CastUl>
             {cast.map(({ id, name, profile_path, character }) => {
               const imageURL = `https://image.tmdb.org/t/p/w500${profile_path}`;
               return (
                 <li key={id}>
-                  <img src={imageURL} alt={name} />
-                  <p>Name: {name}</p>
-                  <p>Character: {character}</p>
+                  <CastImage src={imageURL} alt={name} />
+                  <CastTitle>
+                    Name: <CastInfo>{name}</CastInfo>
+                  </CastTitle>
+                  <CastTitle>
+                    Character: <CastInfo>{character}</CastInfo>
+                  </CastTitle>
                 </li>
               );
             })}
-          </ul>
+          </CastUl>
         </>
       )}
     </>

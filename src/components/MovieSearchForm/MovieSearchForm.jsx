@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import 'styles/styles.css';
+import {
+  Searchbar,
+  SearchForm,
+  SearchFormButton,
+  SearchFormButtonLabel,
+  SearchFormInput,
+} from './MovieSearchForm.styled';
 
 const MovieSearchForm = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
@@ -21,9 +27,9 @@ const MovieSearchForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="Searchbar">
-      <form onSubmit={onSubmitData} className="SearchForm">
-        <input
+    <Searchbar>
+      <SearchForm onSubmit={onSubmitData}>
+        <SearchFormInput
           className="SearchForm-input"
           type="text"
           autoComplete="off"
@@ -33,11 +39,11 @@ const MovieSearchForm = ({ onSubmit }) => {
           onChange={onInputChange}
           value={query}
         />
-        <button type="submit" className="SearchForm-button">
-          <span className="SearchForm-button-label">Search</span>
-        </button>
-      </form>
-    </div>
+        <SearchFormButton type="submit">
+          <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+        </SearchFormButton>
+      </SearchForm>
+    </Searchbar>
   );
 };
 
