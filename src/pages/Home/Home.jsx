@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { getTrendingMovies } from 'services/API';
 import HomeMoviesList from 'components/HomeMovieList/HomeMovieList';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  // const [page, setPage] = useState('1');
+
+  const location = useLocation();
 
   useEffect(() => {
     getTrendingMovies().then(movies => {
@@ -16,7 +18,7 @@ const Home = () => {
   return (
     <main>
       <h1>Trending today</h1>
-      <HomeMoviesList movies={movies} />
+      <HomeMoviesList movies={movies} state={{ from: location }} />
     </main>
   );
 };
